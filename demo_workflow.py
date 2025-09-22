@@ -92,7 +92,7 @@ def demo_workflow():
             collection_name=collection_name,
             query=query,
             limit=3,
-            min_score=0.6
+            min_score=0.3
         )
         
         for j, result in enumerate(results, 1):

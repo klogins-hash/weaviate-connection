@@ -365,23 +365,24 @@ class OptimizedWeaviateService:
         try:
             # Search for relevant documents
             print("🔍 Searching for relevant documents...")
-            search_results = self.semantic_search(
+            results = self.semantic_search(
                 collection_name=collection_name,
                 query=question,
-                limit=max_context_docs,
-                min_score=0.7
+                limit=5,
+                min_score=0.3
             )
             
-            if not search_results:
+            if not results:
                 return {
                     "answer": "I couldn't find any relevant documents to answer your question.",
                     "sources": [],
-                    "confidence": "low"
+                    "confidence": "low",
+                    "context_documents_count": 0
                 }
             
             # Prepare context documents
             context_docs = []
-            for result in search_results:
+            for result in results:
                 props = result["properties"]
                 context_docs.append({
                     "title": props.get("title", "Untitled"),
